@@ -34,8 +34,13 @@ def _chunks(l, n):
 		yield l[i:i + n]
 
 
-def _gcm_send(data, content_type):
-	key = SETTINGS.get("GCM_API_KEY")
+def _gcm_send(data, content_type, gcm_key=None):
+
+	if not gcm_key:
+		key = SETTINGS.get("GCM_API_KEY")
+	else:
+		key = gcm_key
+		
 	if not key:
 		raise ImproperlyConfigured('You need to set PUSH_NOTIFICATIONS_SETTINGS["GCM_API_KEY"] to send messages through GCM.')
 
@@ -71,7 +76,11 @@ def _gcm_send_plain(registration_id, data, **kwargs):
 
 	data = urlencode(sorted(values.items())).encode("utf-8")  # sorted items for tests
 
-	result = _gcm_send(data, "application/x-www-form-urlencoded;charset=UTF-8")
+
+	if "gcm_key" in kwargs:
+		result = _gcm_send(data, "application/x-www-form-urlencoded;charset=UTF-8", kwargs["gcm_key"])
+	else:
+		result = _gcm_send(data, "application/x-www-form-urlencoded;charset=UTF-8")
 
 	# Information about handling response from Google docs (https://developers.google.com/cloud-messaging/http):
 	# If first line starts with id, check second line:
@@ -114,7 +123,11 @@ def _gcm_send_json(registration_ids, data, **kwargs):
 
 	data = json.dumps(values, separators=(",", ":"), sort_keys=True).encode("utf-8")  # keys sorted for tests
 
-	response = json.loads(_gcm_send(data, "application/json"))
+	if "gcm_key" in kwargs:
+		response = json.loads(_gcm_send(data, "application/json", kwargs["gcm_key"]))	
+	else:
+		response = json.loads(_gcm_send(data, "application/json"))
+	
 	if response["failure"] or response["canonical_ids"]:
 		ids_to_remove, old_new_ids = [], []
 		throw_error = False
