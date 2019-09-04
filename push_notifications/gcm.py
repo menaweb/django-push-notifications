@@ -66,7 +66,7 @@ def _fcm_send(data, content_type):
 	return urlopen(request, timeout=SETTINGS["FCM_ERROR_TIMEOUT"]).read().decode("utf-8")
 
 
-def _cm_send_plain(registration_id, data, cloud_type="GCM", **kwargs):
+def _cm_send_plain(registration_id, data, cloud_type="FCM", **kwargs):
 	"""
 	Sends a GCM notification to a single registration_id or to a
 	topic (If "topic" included in the kwargs).
