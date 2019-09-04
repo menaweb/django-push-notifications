@@ -4,7 +4,7 @@ PUSH_NOTIFICATIONS_SETTINGS = getattr(settings, "PUSH_NOTIFICATIONS_SETTINGS", {
 
 
 # GCM
-PUSH_NOTIFICATIONS_SETTINGS.setdefault("GCM_POST_URL", "https://android.googleapis.com/gcm/send")
+PUSH_NOTIFICATIONS_SETTINGS.setdefault("GCM_POST_URL", "https://fcm.googleapis.com/fcm/send")
 PUSH_NOTIFICATIONS_SETTINGS.setdefault("GCM_MAX_RECIPIENTS", 1000)
 
 
