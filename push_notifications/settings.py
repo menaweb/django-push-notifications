@@ -18,10 +18,10 @@ PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_FEEDBACK_PORT", 443)
 PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_ERROR_TIMEOUT", None)
 PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_MAX_NOTIFICATION_SIZE", 2048)
 if settings.DEBUG:
-	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_HOST", "http://api.development.push.apple.com/")
+	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_HOST", "api.development.push.apple.com")
 	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_FEEDBACK_HOST", "feedback.sandbox.push.apple.com")
 else:
-	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_HOST", "http://api.push.apple.com/")
+	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_HOST", "api.push.apple.com")
 	PUSH_NOTIFICATIONS_SETTINGS.setdefault("APNS_FEEDBACK_HOST", "feedback.push.apple.com")
 
 # WNS
